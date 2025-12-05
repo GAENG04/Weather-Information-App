@@ -1,0 +1,390 @@
+/* -------------------------------------------------------------------------- */
+/* 1. Global Reset & Layout (기본 설정) */
+/* -------------------------------------------------------------------------- */
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.8/dist/web/static/pretendard.css");
+
+body {
+  font-family: "Pretendard", -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+  background: #f0f4f8; /* 눈이 편안한 밝은 회색 블루 톤 */
+  color: #333;
+  margin: 0;
+  padding: 20px;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+#root {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+}
+
+/* -------------------------------------------------------------------------- */
+/* 2. Main Container (앱 메인 박스) */
+/* -------------------------------------------------------------------------- */
+.weather-container, 
+.playlist-page {
+  width: 100%;
+  max-width: 600px; /* 모바일~태블릿 최적화 */
+  background-color: #ffffff;
+  padding: 40px 30px;
+  border-radius: 30px; /* 더 둥글게 */
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.05), 0 5px 15px rgba(0, 0, 0, 0.03); /* 깊이감 있는 그림자 */
+  text-align: left;
+  position: relative;
+  overflow: hidden;
+}
+
+.app-title {
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: #1a1a1a;
+  margin-bottom: 30px;
+  letter-spacing: -0.02em;
+}
+
+/* -------------------------------------------------------------------------- */
+/* 3. Search Bar & Buttons (검색창) */
+/* -------------------------------------------------------------------------- */
+.search-form {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 30px;
+  position: relative;
+}
+
+.search-input {
+  flex: 1;
+  padding: 16px 24px;
+  border: 1px solid #e1e4e8;
+  border-radius: 20px;
+  font-size: 1rem;
+  background-color: #f9fafb;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  outline: none;
+  font-weight: 500;
+}
+
+.search-input:focus {
+  background-color: #fff;
+  border-color: #3498db;
+  box-shadow: 0 4px 12px rgba(52, 152, 219, 0.15);
+}
+
+.search-btn, .location-btn {
+  padding: 0 24px;
+  border: none;
+  border-radius: 18px;
+  font-weight: 700;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.search-btn {
+  background: linear-gradient(135deg, #3498db, #2980b9);
+  color: white;
+  box-shadow: 0 4px 10px rgba(52, 152, 219, 0.3);
+}
+
+.location-btn {
+  background-color: #f1f3f5;
+  color: #495057;
+}
+
+.search-btn:hover, .location-btn:hover {
+  transform: translateY(-2px);
+  filter: brightness(105%);
+}
+
+.search-btn:active, .location-btn:active {
+  transform: scale(0.95);
+}
+
+/* -------------------------------------------------------------------------- */
+/* 4. Unified Card Design (모든 정보 카드 디자인 통일) */
+/* -------------------------------------------------------------------------- */
+
+/* 공통 카드 베이스 */
+.weather-recommendations,
+.umbrella-reminder,
+.playlist-suggestion,
+.food-recommendation {
+  padding: 24px;
+  border-radius: 24px;
+  margin-bottom: 16px;
+  position: relative;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: 1px solid rgba(0,0,0,0.03);
+}
+
+/* 호버 효과 */
+.weather-recommendations:hover,
+.umbrella-reminder:hover,
+.playlist-suggestion:hover,
+.food-recommendation:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
+}
+
+/* 카드별 테마 색상 및 스타일 */
+
+/* 👕 옷차림 (Blue Theme) */
+.weather-recommendations {
+  background: linear-gradient(145deg, #ffffff 0%, #e3f2fd 100%);
+}
+.weather-recommendations h3 { color: #1565c0; }
+
+/* ☔ 우산 (Green Theme) */
+.umbrella-reminder {
+  background: linear-gradient(145deg, #ffffff 0%, #e8f5e9 100%);
+}
+.umbrella-reminder h3 { color: #2e7d32; }
+.umbrella-reminder.urgent { /* 긴급 시 Red */
+  background: linear-gradient(145deg, #ffffff 0%, #ffebee 100%);
+}
+.umbrella-reminder.urgent h3 { color: #c62828; }
+
+/* 🎵 음악 (Purple Theme) */
+.playlist-suggestion {
+  background: linear-gradient(145deg, #ffffff 0%, #f3e5f5 100%);
+}
+.playlist-suggestion h3 { color: #7b1fa2; }
+
+/* 🍜 음식 (Orange Theme) */
+.food-recommendation {
+  background: linear-gradient(145deg, #ffffff 0%, #fff3e0 100%);
+}
+.food-recommendation h3 { color: #ef6c00; }
+
+/* 카드 내부 텍스트 공통 */
+.weather-recommendations h3,
+.umbrella-reminder h3,
+.playlist-suggestion h3,
+.food-recommendation h3 {
+  font-size: 1.1rem;
+  font-weight: 800;
+  margin-top: 0;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.food-menu-name, .mainText {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #333;
+  margin: 0 0 6px 0;
+  line-height: 1.4;
+}
+
+.food-reason, .tipItem {
+  font-size: 0.95rem;
+  color: #666;
+  margin: 0;
+  line-height: 1.5;
+  font-weight: 500;
+}
+
+/* Link 버튼 스타일 */
+.playlist-link-button {
+  display: inline-block;
+  margin-top: 15px;
+  padding: 10px 20px;
+  background-color: #7b1fa2;
+  color: white;
+  border-radius: 12px;
+  font-size: 0.9rem;
+  font-weight: bold;
+  transition: background-color 0.2s;
+  width: 100%;
+  text-align: center;
+  box-sizing: border-box;
+}
+.playlist-link-button:hover { background-color: #4a148c; }
+
+/* -------------------------------------------------------------------------- */
+/* 5. Playlist Page (음악 차트 페이지) */
+/* -------------------------------------------------------------------------- */
+
+.playlist-page {
+  max-width: 700px;
+}
+
+.playlist-header {
+  border-bottom: 2px solid #f1f3f5;
+  margin-bottom: 20px;
+  padding-bottom: 20px;
+}
+
+.back-button {
+  display: inline-block;
+  margin-bottom: 15px;
+  padding: 8px 16px;
+  background-color: #f1f3f5;
+  border-radius: 12px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #555;
+  transition: all 0.2s;
+}
+.back-button:hover {
+  background-color: #e9ecef;
+  color: #111;
+  transform: translateX(-3px);
+}
+
+.chart-main-title {
+  font-size: 2rem;
+  margin: 10px 0;
+  color: #2575fc; 
+  font-weight: 800;
+}
+
+.chart-description {
+  color: #666;
+  font-size: 1.05rem;
+}
+
+/* 차트 검색창 */
+.search-bar-container {
+  display: flex;
+  gap: 10px;
+  margin-top: 25px;
+}
+
+/* 차트 리스트 */
+.music-chart-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.chart-item {
+  display: flex;
+  align-items: center;
+  padding: 15px;
+  background-color: #fff;
+  border-radius: 16px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+  border: 1px solid #f5f5f5;
+  transition: all 0.2s;
+}
+
+.chart-item:hover {
+  transform: scale(1.01);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+  border-color: #e0e0e0;
+}
+
+/* 순위 */
+.chart-rank {
+  width: 35px;
+  text-align: center;
+  font-weight: 900;
+  font-size: 1.2rem;
+  color: #a0a0a0;
+  margin-right: 15px;
+  font-style: italic;
+}
+
+.chart-item:nth-child(1) .chart-rank { color: #2575fc; }
+.chart-item:nth-child(2) .chart-rank { color: #2575fc; }
+.chart-item:nth-child(3) .chart-rank { color: #2575fc; }
+
+/* 썸네일 */
+.chart-thumbnail-wrapper {
+  width: 64px;
+  height: 64px;
+  border-radius: 10px;
+  overflow: hidden;
+  margin-right: 20px;
+  flex-shrink: 0;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+.chart-thumbnail { width: 100%; height: 100%; object-fit: cover; }
+
+/* 정보 */
+.chart-info { flex: 1; overflow: hidden; }
+.chart-song-title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #333;
+  margin: 0 0 4px 0;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.chart-artist-name { font-size: 0.9rem; color: #777; }
+
+/* 재생 아이콘 */
+.chart-play-icon {
+  width: 40px; height: 40px;
+  display: flex; align-items: center; justify-content: center;
+  background-color: #f8f9fa; border-radius: 50%;
+  color: #bbb; transition: all 0.2s;
+}
+.chart-item:hover .chart-play-icon {
+  background-color: #7b1fa2; color: #fff;
+  transform: rotate(360deg);
+}
+
+/* -------------------------------------------------------------------------- */
+/* 6. Loading & Error */
+/* -------------------------------------------------------------------------- */
+.error-message {
+  background-color: #fef2f2;
+  color: #dc2626;
+  padding: 16px;
+  border-radius: 12px;
+  text-align: center;
+  font-weight: 600;
+  border: 1px solid #fee2e2;
+  margin-bottom: 20px;
+  animation: shake 0.4s cubic-bezier(.36,.07,.19,.97) both;
+}
+
+@keyframes shake {
+  10%, 90% { transform: translate3d(-1px, 0, 0); }
+  20%, 80% { transform: translate3d(2px, 0, 0); }
+  30%, 50%, 70% { transform: translate3d(-4px, 0, 0); }
+  40%, 60% { transform: translate3d(4px, 0, 0); }
+}
+
+.loading-spinner-container {
+  padding: 40px;
+  text-align: center;
+  color: #888;
+}
+
+.spinner {
+  width: 40px; height: 40px;
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #3498db;
+  border-radius: 50%;
+  margin: 0 auto 15px;
+  animation: spin 1s linear infinite;
+}
+@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+/* -------------------------------------------------------------------------- */
+/* 7. 반응형 (모바일) */
+/* -------------------------------------------------------------------------- */
+@media (max-width: 600px) {
+  .weather-container, .playlist-page { padding: 25px 20px; }
+  .app-title { font-size: 1.5rem; }
+  .chart-item { padding: 12px; }
+  .chart-thumbnail-wrapper { width: 50px; height: 50px; margin-right: 12px; }
+}
